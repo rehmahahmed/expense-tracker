@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // In dev, Vite proxies /api to http://localhost:5000 (see vite.config.js)
-const API_BASE = 'https://expense-tracker-lh2m.onrender.com/expenses';
+const API_BASE = 'https://expense-tracker-lh2m.onrender.com/api/expenses';
 
 export const getExpenses = () => axios.get(API_BASE);
 
