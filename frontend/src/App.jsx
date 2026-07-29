@@ -22,7 +22,15 @@ function App() {
     try {
       setLoading(true);
       const res = await getExpenses();
-      setExpenses(res.data);
+      
+      // 1. Log this to see the exact structure in your browser console
+      console.log("Backend Response:", res); 
+
+      // 2. Adjust this line based on what the console shows!
+      // If the log shows: { data: { expenses: [...] } } -> use res.data.expenses
+      // If the log shows: { data: { data: [...] } } -> use res.data.data
+      setExpenses(res.data); 
+      
       setError('');
     } catch (err) {
       setError('Could not load expenses. Is the backend server running?');
@@ -46,9 +54,13 @@ function App() {
   };
 
   const filteredExpenses = useMemo(() => {
+    // 1. ADD THIS SAFETY CHECK:
+    if (!Array.isArray(expenses)) return []; 
+
     return expenses.filter((exp) => {
       // Search by description (case-insensitive)
       if (filters.search.trim()) {
+// ... rest of your code stays exactly the same
         const q = filters.search.trim().toLowerCase();
         if (!exp.description.toLowerCase().includes(q)) return false;
       }
